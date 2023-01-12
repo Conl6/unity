@@ -79,20 +79,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51941ae09fd171419a1bdbfdf32bc69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  movementSpeed: 0
   groundDrag: 7
+  jumps: 0
+  maxJumps: 1
   jumpForce: 10
   jumpCooldown: 2
   airMultiplier: 2
-  walkSpeed: 0
-  sprintSpeed: 0
   jumpKey: 32
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  orientation: {fileID: 6766943111924875158}
-  text_speed: {fileID: 0}
+  Orientation: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!54 &1837660725561768929
 Rigidbody:
   m_ObjectHideFlags: 0

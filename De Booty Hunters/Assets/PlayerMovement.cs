@@ -9,10 +9,14 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag;
 
+    public int jumps;
+    public int maxJumps;
+
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    
     //keybinding
     public KeyCode jumpKey = KeyCode.Space;
     //ground check
@@ -45,11 +49,18 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         speedControl();
+        
+        if (jumps == maxJumps)
+        {
+            readyToJump = false;
+        }
 
         //handle drag
         if (grounded)
         {
             rb.drag = groundDrag;
+            jumps = 0;
+            readyToJump = true;
         }
         else
         { 
@@ -67,10 +78,8 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && readyToJump)
         {
-            readyToJump = false;
-
             Jump();
 
             Invoke(nameof(resetJump), jumpCooldown);
@@ -106,8 +115,9 @@ public class PlayerMovement : MonoBehaviour
     {
         //reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
+        
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        jumps++;
     }
     private void resetJump()
     {
