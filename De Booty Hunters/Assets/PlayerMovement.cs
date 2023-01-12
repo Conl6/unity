@@ -16,9 +16,11 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
-    
+
     //keybinding
+    public KeyCode Sprint = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
+    
     //ground check
     public float playerHeight;
     public LayerMask whatIsGround;
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
-    public Rigidbody rb;
+    private Rigidbody rb;
    
     void Start()
     {
@@ -100,8 +102,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * movementSpeed * airMultiplier, ForceMode.Force);
         }
-    }
-    
+    }    
     private void speedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f,rb.velocity.z);
