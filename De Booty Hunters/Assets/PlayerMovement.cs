@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //movement
-    public float movementSpeed;
+    private float movementSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
 
     public float groundDrag;
 
@@ -18,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     bool readyToJump;
 
     //keybinding
-    public KeyCode Sprint = KeyCode.LeftShift;
+    public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
     
     //ground check
@@ -35,7 +37,14 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     private Rigidbody rb;
-   
+
+    public MovementStat state;
+    public enum MovementStat
+    {
+        walking,
+        sprinting,
+        air,
+    }
     void Start()
     {
         rb= GetComponent<Rigidbody>();
@@ -51,13 +60,14 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         speedControl();
-        
+        stateHandler();
+
         if (jumps == maxJumps)
         {
             readyToJump = false;
         }
 
-        //handle drag
+        //handle drag & double jump
         if (grounded)
         {
             rb.drag = groundDrag;
@@ -88,6 +98,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void stateHandler()
+    {
+        if (grounded && Input.GetKey(sprintKey))
+        {
+            state = MovementStat.sprinting;
+            movementSpeed = sprintSpeed;
+        } else if (grounded)
+        {
+            state = MovementStat.walking;
+            movementSpeed = walkSpeed;
+        }
+        else
+        {
+            state = MovementStat.air;
+        }
+    }
     private void Move()
     {
         // Movement Direction

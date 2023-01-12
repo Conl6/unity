@@ -476,7 +476,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 422554060673155500, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
@@ -540,6 +539,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7802386469101108796, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: walkSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7802386469101108796, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: groundDrag
       value: 5
       objectReference: {fileID: 0}
@@ -569,5 +572,4 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2011639566855124794, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
-    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
