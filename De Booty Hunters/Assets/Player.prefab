@@ -40,8 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 422554060673155500}
-  - component: {fileID: 7802386469101108796}
-  - component: {fileID: 7393063806209782521}
+  - component: {fileID: 1186630153224288526}
+  - component: {fileID: 3213406523397392266}
+  - component: {fileID: 5062709018338112540}
   - component: {fileID: 1837660725561768929}
   m_Layer: 0
   m_Name: Player
@@ -68,7 +69,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7802386469101108796
+--- !u!114 &1186630153224288526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,32 +78,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 4098128922568196922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d51941ae09fd171419a1bdbfdf32bc69, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d4b5318dfd120b4183482389c65da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 0
   sprintSpeed: 0
   slideSpeed: 0
-  groundDrag: 7
-  jumps: 0
-  maxJumps: 1
-  jumpForce: 10
-  jumpCooldown: 2
-  airMultiplier: 2
-  crouchSpeed: 0.2
-  crouchHeight: 0.5
-  sprintKey: 304
+  wallrunSpeed: 0
+  speedIncreaseMultiplier: 0
+  slopeIncreaseMultiplier: 0
+  groundDrag: 0
+  jumpForce: 0
+  jumpCooldown: 0
+  airMultiplier: 0
+  crouchSpeed: 0
+  crouchYScale: 0
   jumpKey: 32
-  crouchKey: 99
-  playerHeight: 2
+  sprintKey: 304
+  crouchKey: 306
+  playerHeight: 0
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 8
-  maxSlopeAngle: 45
-  Orientation: {fileID: 0}
+    m_Bits: 0
+  maxSlopeAngle: 0
+  orientation: {fileID: 0}
   state: 0
   sliding: 0
---- !u!114 &7393063806209782521
+  crouching: 0
+  wallrunning: 0
+  text_speed: {fileID: 0}
+  text_mode: {fileID: 0}
+--- !u!114 &3213406523397392266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098128922568196922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63bfa75e795434d4991ffd6ffdeb62f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  wallRunForce: 0
+  wallJumpUpForce: 0
+  wallJumpSideForce: 0
+  wallClimbSpeed: 0
+  maxWallRunTime: 0
+  jumpKey: 32
+  upwardsRunKey: 304
+  downwardsRunKey: 306
+  wallCheckDistance: 0
+  minJumpHeight: 0
+  exitWallTime: 0
+  useGravity: 0
+  gravityCounterForce: 0
+  orientation: {fileID: 0}
+  cam: {fileID: 0}
+--- !u!114 &5062709018338112540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,11 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0296557842ff8054c884acf7b0424ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orientation: {fileID: 6766943111924875158}
-  playerObj: {fileID: 7727238038427274741}
-  maxSlideTime: 0.75
-  slideForce: 100
-  slideYScale: 0.5
+  orientation: {fileID: 0}
+  playerObj: {fileID: 0}
+  maxSlideTime: 0
+  slideForce: 0
+  slideYScale: 0
   slideKey: 306
 --- !u!54 &1837660725561768929
 Rigidbody:
