@@ -37,11 +37,14 @@ public class Sliding : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+       if (Input.GetKeyDown(slideKey) && (verticalInput != 0 || horizontalInput != 0)) 
+       {
             StartSlide();
-
+       }
         if (Input.GetKeyUp(slideKey) && pm.sliding)
+        {
             StopSlide();
+        }
     }
 
     private void FixedUpdate()
@@ -55,7 +58,7 @@ public class Sliding : MonoBehaviour
         pm.sliding = true;
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * 0.1f, ForceMode.Impulse);
 
         slideTimer = maxSlideTime;
     }
@@ -71,7 +74,6 @@ public class Sliding : MonoBehaviour
 
             slideTimer -= Time.deltaTime;
         }
-
         // sliding down a slope
         else
         {

@@ -15,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float lastDesiredMovemetSpeed;
 
     public float groundDrag;
-
+    
+    //jumping
     public int jumps;
     public int maxJumps;
 
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     public MovementStat state;
+    
     public enum MovementStat
     {
         walking,
@@ -84,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         speedControl();
         stateHandler();
-
+        //simple double jump
         if (jumps == maxJumps)
         {
             readyToJump = false;
@@ -104,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
         //Disable gravity whilst on a slope
         rb.useGravity = !OnSlope();
     }
+    
     private void FixedUpdate()
     {
         Move();
