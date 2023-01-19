@@ -13,6 +13,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float sprintSpeed;
     public float slideSpeed;
     public float wallrunSpeed;
+    public float dashspeed;
 
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
@@ -63,9 +64,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         wallrunning,
         crouching,
         sliding,
-        air
+        air,
+        dash
     }
 
+    public bool dashing;
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
@@ -90,7 +93,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         StateHandler();
 
         // handle drag
-        if (grounded)
+        if (grounded || !dashing)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -136,6 +139,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
+        if (dashing)
+        {
+            state = MovementState.dash;
+            moveSpeed = dashspeed;
+        }
         // Mode - Wallrunning
         if (wallrunning)
         {
