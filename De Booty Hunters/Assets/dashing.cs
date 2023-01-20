@@ -25,8 +25,9 @@ public class dashing : MonoBehaviour
     {
         pm.dashing = true;
         Vector3 applyforce = orientation.forward * dashforce + orientation.up * dashupforce;
+        delaydash = applyforce;
         Invoke(nameof(delaydash), 0.025f);
-        rb.AddForce(transform.forward * dashforce, ForceMode.VelocityChange);
+        
 
         Invoke(nameof(resetdash), dashdurabillity);
     }

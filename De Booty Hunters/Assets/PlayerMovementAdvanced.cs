@@ -14,6 +14,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float slideSpeed;
     public float wallrunSpeed;
     public float dashspeed;
+    public float dashspeedchangefactor;
+
+
 
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
@@ -45,6 +48,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
     private bool exitingSlope;
+    bool keepmomentum;
+    
 
 
     public Transform orientation;
@@ -57,6 +62,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Rigidbody rb;
 
     public MovementState state;
+    public MovementState laststate;
     public enum MovementState
     {
         walking,
@@ -142,7 +148,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (dashing)
         {
             state = MovementState.dash;
-            moveSpeed = dashspeed;
+            desiredMoveSpeed = dashspeed;
+            
         }
         // Mode - Wallrunning
         if (wallrunning)
@@ -189,8 +196,28 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
         {
             state = MovementState.air;
+            if (desiredMoveSpeed < sprintSpeed)
+                desiredMoveSpeed = walkSpeed;
         }
+        
 
+        bool desiredmovespeedhaschanged = desiredMoveSpeed != lastDesiredMoveSpeed;
+        lastDesiredMoveSpeed = desiredMoveSpeed;
+        laststate = state;
+        if (MovementState.dash == laststate) keepmomentum = true;
+        if (desiredmovespeedhaschanged)
+        {
+            if (keepmomentum)
+            {
+                StopAllCoroutines();
+                StartCoroutine(SmoothlyLerpMoveSpeed());
+            }
+            else
+            {
+                StopAllCoroutines();
+                moveSpeed = desiredMoveSpeed;
+            }
+        }
         // check if desired move speed has changed drastically
         if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
         {
