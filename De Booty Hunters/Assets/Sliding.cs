@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/// added if(pm.wallrunning) return;
+// add: Slide cooldown, ground check, air diffrent to ground sldie
 
 public class Sliding : MonoBehaviour
 {
@@ -17,6 +17,10 @@ public class Sliding : MonoBehaviour
     public float maxSlideTime;
     public float slideForce;
     private float slideTimer;
+
+    private bool readyToSlide;
+    public float slideCooldown;
+    public float slideCooldownTimer;
 
     public float slideYScale;
     private float startYScale;
@@ -33,18 +37,29 @@ public class Sliding : MonoBehaviour
         pm = GetComponent<PlayerMovementAdvanced>();
 
         startYScale = playerObj.localScale.y;
+
+        readyToSlide = true;
     }
 
     private void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        if (pm.OnSlope())
+        {
+            readyToSlide = true;
+        }
 
-        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+        if (!readyToSlide)
+        {
+            SlideCooldown();
+        }
+    
+        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0) && readyToSlide)
             StartSlide();
 
         if (Input.GetKeyUp(slideKey) && pm.sliding)
-            StopSlide();
+            StopSlide();                               
     }
 
     private void FixedUpdate()
@@ -90,5 +105,18 @@ public class Sliding : MonoBehaviour
         pm.sliding = false;
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, startYScale, playerObj.localScale.z);
+       
+        slideCooldownTimer = slideCooldown;
+        readyToSlide = false;
+    }
+
+    private void SlideCooldown()
+    {
+        slideCooldownTimer -= Time.deltaTime;
+        
+        if (slideCooldownTimer <= 0)
+        {
+            readyToSlide = true;
+        }
     }
 }
