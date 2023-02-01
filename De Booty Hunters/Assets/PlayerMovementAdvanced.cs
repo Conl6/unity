@@ -65,6 +65,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public MovementState laststate;
     public enum MovementState
     {
+        Grappling,
         walking,
         sprinting,
         wallrunning,
@@ -73,7 +74,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         air,
         dash
     }
-
+    public bool activeGrappling;
     public bool dashing;
     public bool sliding;
     public bool crouching;
@@ -145,14 +146,27 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
-        if (dashing)
+        if (freeze)
+        {
+            state = MovementState.freeze;
+            moveSpeed = 0;
+            rb.velocity = Vector3.zero;
+        }
+
+        // Mode - Grappling
+        else if (activeGrapple)
+        {
+            state = MovementState.grappling;
+            moveSpeed = sprintSpeed;
+        }
+        else if (dashing)
         {
             state = MovementState.dash;
             desiredMoveSpeed = dashspeed;
             
         }
         // Mode - Wallrunning
-        if (wallrunning)
+        else if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
