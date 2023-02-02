@@ -25,6 +25,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    private int jumps;
+    public int maxjumps;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -78,6 +80,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        jumps = 0;
+
         readyToJump = true;
 
         startYScale = transform.localScale.y;
@@ -92,6 +96,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
         SpeedControl();
         StateHandler();
 
+        if(jumps > maxjumps)
+        {
+            readyToJump = false;
+        }
         // handle drag
         if (grounded)
             rb.drag = groundDrag;
@@ -110,9 +118,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
         {
-            readyToJump = false;
+          
 
             Jump();
 
@@ -289,15 +297,17 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
+        jumps++;
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
     {
         readyToJump = true;
-
+        jumps = 0;
         exitingSlope = false;
     }
+    
+   
 
     public bool OnSlope()
     {
