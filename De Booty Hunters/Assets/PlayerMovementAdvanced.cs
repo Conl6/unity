@@ -13,7 +13,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float sprintSpeed;
     public float slideSpeed;
     public float wallrunSpeed;
-    public float glideSpeed;
 
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
@@ -25,6 +24,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    
     private int jumps;
     public int maxjumps;
 
@@ -46,7 +46,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     [Header("Slope")]
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
-    private bool exitingSlope;
+    public bool exitingSlope;
 
 
     public Transform orientation;
@@ -66,11 +66,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
         wallrunning,
         crouching,
         sliding,
-        gliding,
         air
     }
 
-    public bool gliding;
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
@@ -96,9 +94,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        if(jumps > maxjumps)
+        //jump
+        if (jumps >= maxjumps)
         {
             readyToJump = false;
+        }
+        if (grounded)
+        {
+            readyToJump = true;
+            jumps = 0;
         }
         // handle drag
         if (grounded)
@@ -118,10 +122,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && readyToJump)
         {
-          
-
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
@@ -147,13 +149,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
-        // Mode - Gliding
-        /*if (gliding)
-        {
-            state = MovementState.gliding;
-
-            desiredMoveSpeed = glideSpeed;
-        }*/
         // Mode - Wallrunning
         if (wallrunning)
         {
@@ -297,13 +292,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        jumps++;
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        jumps++;
     }
     private void ResetJump()
     {
         readyToJump = true;
-        jumps = 0;
         exitingSlope = false;
     }
     

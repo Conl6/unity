@@ -85,7 +85,7 @@ public class WallRunningAdvanced : MonoBehaviour
         downwardsRunning = Input.GetKey(downwardsRunKey);
 
         // State 1 - Wallrunning
-        if((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
+        if((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall && !pm.exitingSlope)
         {
             if (!pm.wallrunning)
                 StartWallRun();
