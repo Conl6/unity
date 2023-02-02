@@ -13,6 +13,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float sprintSpeed;
     public float slideSpeed;
     public float wallrunSpeed;
+    public float glideSpeed;
 
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
@@ -38,7 +39,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    public bool grounded;
 
     [Header("Slope")]
     public float maxSlopeAngle;
@@ -63,9 +64,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         wallrunning,
         crouching,
         sliding,
+        gliding,
         air
     }
 
+    public bool gliding;
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
@@ -80,7 +83,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         startYScale = transform.localScale.y;
     }
 
-    private void Update()
+    public void Update()
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
@@ -136,6 +139,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
+        // Mode - Gliding
+        /*if (gliding)
+        {
+            state = MovementState.gliding;
+
+            desiredMoveSpeed = glideSpeed;
+        }*/
         // Mode - Wallrunning
         if (wallrunning)
         {
