@@ -66,6 +66,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public enum MovementState
     {
         Grappling,
+        Freeze,
         walking,
         sprinting,
         wallrunning,
@@ -79,6 +80,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
+    public bool freeze;
 
     private void Start()
     {
@@ -148,15 +150,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         if (freeze)
         {
-            state = MovementState.freeze;
+            state = MovementState.Freeze;
             moveSpeed = 0;
             rb.velocity = Vector3.zero;
         }
 
         // Mode - Grappling
-        else if (activeGrapple)
+        else if (activeGrappling)
         {
-            state = MovementState.grappling;
+            state = MovementState.Grappling;
             moveSpeed = sprintSpeed;
         }
         else if (dashing)
