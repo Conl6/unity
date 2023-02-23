@@ -20,18 +20,23 @@ public class dashing : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovementAdvanced>();
+        orientation = pm.orientation;
     }
     void dash()
     {
         pm.dashing = true;
         Vector3 applyforce = orientation.forward * dashforce + orientation.up * dashupforce;
-        delaydash = applyforce;
+        rb.AddForce(applyforce, ForceMode.Force);
+        applyforce = delaydash();
         Invoke(nameof(delaydash), 0.025f);
         
 
         Invoke(nameof(resetdash), dashdurabillity);
     }
-    Vector3 delaydash;
+    private Vector3 delaydash()
+    {
+        return new Vector3(0, 0, 0);
+    }
     private void resetdash()
     {
         pm.dashing = false;

@@ -99,7 +99,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         StateHandler();
 
         // handle drag
-        if (grounded || !dashing)
+        if (grounded && !dashing)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -152,7 +152,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             
         }
         // Mode - Wallrunning
-        if (wallrunning)
+        else if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
