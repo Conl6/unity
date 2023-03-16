@@ -46,7 +46,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
-
+    [Header("Refrence")]
+    public Climbing climbingScript;
     public Transform orientation;
 
     float horizontalInput;
@@ -78,6 +79,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        climbingScript = GetComponent<Climbing>();
+
         readyToJump = true;
 
         startYScale = transform.localScale.y;
@@ -88,7 +91,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        MyInput();
+        PlayerInput();
         SpeedControl();
         StateHandler();
 
@@ -104,7 +107,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         MovePlayer();
     }
 
-    private void MyInput()
+    private void PlayerInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
@@ -235,6 +238,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (climbingScript.exitingWall) return;
+
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
