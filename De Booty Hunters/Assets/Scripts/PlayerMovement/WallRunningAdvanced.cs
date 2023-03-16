@@ -90,6 +90,7 @@ public class WallRunningAdvanced : MonoBehaviour
             if (!pm.wallrunning)
                 StartWallRun();
 
+            // wallrun timer
             if (wallRunTimer > 0)
                 wallRunTimer -= Time.deltaTime;
 
@@ -132,7 +133,7 @@ public class WallRunningAdvanced : MonoBehaviour
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        // camera effects
+        // apply camera effects
         cam.DoFov(90f);
         if (wallLeft) cam.DoTilt(-5f);
         if (wallRight) cam.DoTilt(5f);
@@ -159,7 +160,7 @@ public class WallRunningAdvanced : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
 
         // push to wall force
-        if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
+        if (!(wallLeft && horizontalInput < 0) && !(wallRight && horizontalInput > 0))
             rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
         // weaken gravity
