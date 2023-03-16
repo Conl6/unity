@@ -1845,7 +1845,7 @@ GameObject:
   - component: {fileID: 1062702370}
   - component: {fileID: 1062702369}
   - component: {fileID: 1062702368}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2475,6 +2475,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: fef2f84061495cd47b551f43c295a13d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -7463960209093245854, guid: fef2f84061495cd47b551f43c295a13d, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2490,6 +2494,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fef2f84061495cd47b551f43c295a13d, type: 3}
       propertyPath: m_Name
       value: building s1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fef2f84061495cd47b551f43c295a13d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -3108,6 +3116,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4b5318dfd120b4183482389c65da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1732751420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+  m_PrefabInstance: {fileID: 3667767625779215940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732751409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4221290005456c84f96a2ade355a2b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1734825749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3411,7 +3430,7 @@ GameObject:
   - component: {fileID: 1846613821}
   - component: {fileID: 1846613820}
   - component: {fileID: 1846613819}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4109,6 +4128,10 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1186630153224288526, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: climbingScript
+      value: 
+      objectReference: {fileID: 1732751420}
+    - target: {fileID: 1186630153224288526, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: whatIsGround.m_Bits
       value: 8
       objectReference: {fileID: 0}
@@ -4213,6 +4236,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1732751417}
     - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: climbJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: climbSpeed
       value: 10
       objectReference: {fileID: 0}
@@ -4221,12 +4248,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1072354278}
     - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: exitWallTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: maxClimbTime
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: detectionLength
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: climbJumpUpForce
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: maxWallLookAngle
@@ -4238,7 +4273,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: whatIsWall.m_Bits
-      value: 64
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: climbJumpBackForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464650798472482048, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
+      propertyPath: minWallNormalAngleChange
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7802386469101108796, guid: 473572dadb131b341bd55580e0ece2f4, type: 3}
       propertyPath: maxJumps
