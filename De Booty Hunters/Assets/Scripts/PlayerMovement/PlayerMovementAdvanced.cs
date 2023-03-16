@@ -73,6 +73,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool crouching;
     public bool wallrunning;
     public bool climbing;
+    public bool sprinting;
 
     private void Start()
     {
@@ -180,11 +181,14 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
+
+            sprinting = true;
         }
 
         // Mode - Walking
         else if (grounded)
         {
+            if (!sprinting)
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
         }

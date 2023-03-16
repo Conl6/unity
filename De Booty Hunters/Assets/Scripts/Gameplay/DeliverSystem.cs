@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class DeliverSystem : MonoBehaviour
 {
     public Transform[] deliveryPoints; // holds delivery points
     public float deliveryDistance = 2f; // distance at which a delivery is considered complete
-    public Text deliveryStatusText; // UI text to display delivery status
+    public TextMeshProUGUI deliveryStatusText; // UI text to display delivery status
     private Transform currentDeliveryPoint;
     private bool hasDelivery;
 
