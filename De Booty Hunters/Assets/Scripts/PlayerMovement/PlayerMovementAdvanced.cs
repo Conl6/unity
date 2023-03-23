@@ -60,6 +60,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public MovementState state;
     public enum MovementState
     {
+        grappling,
+        freeze,
         walking,
         sprinting,
         climbing,
@@ -68,12 +70,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
         sliding,
         air
     }
-
+    public bool freeze;
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
     public bool climbing;
     public bool sprinting;
+
+
+    public bool activeGrapple;
 
     private void Start()
     {
@@ -143,8 +148,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
+        if (freeze)
+        {
+            state = MovementState.freeze;
+            moveSpeed = 0;
+            rb.velocity = Vector3.zero;
+        }
+        else if (activeGrapple)
+        {
+            state = MovementState.grappling;
+            moveSpeed = sprintSpeed;
+        }
         // Mode - Climbing
-        if (climbing)
+        else if (climbing)
         {
             state = MovementState.climbing;
             desiredMoveSpeed = climbSpeed;
@@ -305,6 +321,23 @@ public class PlayerMovementAdvanced : MonoBehaviour
         readyToJump = true;
 
         exitingSlope = false;
+    }
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        activeGrapple = true;
+
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        Invoke(nameof(SetVelocity), 0.1f);
+
+        Invoke(nameof(ResetRestrictions), 3f);
+    }
+    private Vector3 velocityToSet;
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true;
+        rb.velocity = velocityToSet;
+
+        cam.DoFov(grappleFov);
     }
 
     public bool OnSlope()
