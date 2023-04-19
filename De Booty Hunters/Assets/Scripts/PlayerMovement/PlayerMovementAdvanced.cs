@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovementAdvanced : MonoBehaviour
 {
+
+    public Text stateText;
+    
+
+ 
+
     [Header("Movement")]
     private float moveSpeed;
     private float desiredMoveSpeed;
@@ -102,6 +109,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        stateText.text = state.ToString();
     }
 
     private void FixedUpdate()
