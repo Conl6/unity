@@ -46,6 +46,10 @@ public class WallRunningAdvanced : MonoBehaviour
     private PlayerMovementAdvanced pm;
     private Rigidbody rb;
 
+    [Header("Anim")]
+    public Animator anim;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -187,5 +191,17 @@ public class WallRunningAdvanced : MonoBehaviour
         // reset y velocity and add force
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(forceToApply, ForceMode.Impulse);
+    }
+
+    private void Animator()
+    {
+        if(wallLeft)
+        {
+            anim.SetFloat("Blend", 1f);
+        }
+        else if(wallRight)
+        {
+            anim.SetFloat("Blend", 0.75f);
+        }
     }
 }

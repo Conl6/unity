@@ -64,6 +64,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     Rigidbody rb;
 
+    [Header("Animations")]
+    public Animator anim;
+
+
     public MovementState state;
     public enum MovementState
     {
@@ -81,6 +85,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool wallrunning;
     public bool climbing;
     public bool sprinting;
+    public bool walking;
 
 
     private void Start()
@@ -103,7 +108,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         PlayerInput();
         SpeedControl();
         StateHandler();
-
+        HandleAnimations();
         // handle drag
         if (grounded)
             rb.drag = groundDrag;
@@ -201,6 +206,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             if (!sprinting)
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            walking = true;
         }
 
         // Mode - Air
@@ -337,5 +343,22 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         float mult = Mathf.Pow(10.0f, (float)digits);
         return Mathf.Round(value * mult) / mult;
+    }
+
+    private void HandleAnimations()
+    {
+        if(Input.GetKey(sprintKey))
+        {
+            anim.SetFloat("Blend", 0.25f);
+        }
+        else if (walking)
+        {
+            anim.SetFloat("Blend", 0f);
+        }
+       
+        if (sliding)
+        {
+            anim.SetFloat("Blend", .5f);
+        }
     }
 }
