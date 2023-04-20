@@ -1,8 +1,14 @@
 fileFormatVersion: 2
 guid: feb7f24e8c1799a4ea5dba4ecd03da6c
 ModelImporter:
-  serializedVersion: 21300
-  internalIDToNameTable: []
+  serializedVersion: 22103
+  internalIDToNameTable:
+  - first:
+      74: -8885348084395271973
+    second: human fps|human fpsAction
+  - first:
+      74: 3806337232127924813
+    second: human fps|human fpsAction.001
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -67,6 +73,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -99,6 +106,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
