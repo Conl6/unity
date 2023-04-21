@@ -142,7 +142,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
 
         // start crouch
-        if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
+        if (!sliding && Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -397,13 +397,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void HandleAnimations()
     {
-        if(Input.GetKey(sprintKey))
+        if(Input.GetKey(sprintKey) && rb.velocity.magnitude > 0.75)
         {
             anim.SetFloat("Blend", 0.25f);
         }
         else if (walking)
         {
-            anim.SetFloat("Blend", 0f);
+           anim.SetFloat("Blend", 0f);
         }
        
         if (sliding)
