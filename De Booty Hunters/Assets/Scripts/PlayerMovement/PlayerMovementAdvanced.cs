@@ -11,6 +11,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Sounds")]
     public AudioSource footstepSFX;
+    public AudioSource slideSFX; 
     
 
     [Header("Movement")]
@@ -130,10 +131,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             footstepSFX.Play();
         }
-        else
+        if ( sliding || !grounded )
         {
-            //footstepSFX.Stop();
-        }    
+            footstepSFX.Stop();
+        }
+
+        if (sliding && !slideSFX.isPlaying)
+        {
+            slideSFX.Play();
+        }
+        if (!sliding)
+        {
+            slideSFX.Stop();
+        }
     }
 
     private void FixedUpdate()
