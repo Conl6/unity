@@ -8,11 +8,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
 {
 
     public Text stateText;
+
+    [Header("Sounds")]
+    public AudioSource footstepSFX;
     
 
- 
-
     [Header("Movement")]
+    
     private float moveSpeed;
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -119,6 +121,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.drag = 0;
 
         stateText.text = state.ToString();
+
+
+
+        //footstepSFX.Play();
+
+        if (rb.velocity.magnitude > 0.1 && !sliding && grounded && !footstepSFX.isPlaying)
+        {
+            footstepSFX.Play();
+        }
+        else
+        {
+            //footstepSFX.Stop();
+        }    
     }
 
     private void FixedUpdate()
@@ -278,7 +293,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         // on ground
         else if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
 
         // in air
         else if (!grounded)
@@ -403,7 +420,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
         else if (walking)
         {
-           anim.SetFloat("Blend", 0f);
+            anim.SetFloat("Blend", 0f);
         }
        
         if (sliding)
