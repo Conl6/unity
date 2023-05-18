@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class PlayerMovementAdvanced : MonoBehaviour
 {
 
-    public Text stateText;
-
     [Header("Sounds")]
     public AudioSource footstepSFX;
     public AudioSource slideSFX; 
@@ -120,8 +118,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
-
-        stateText.text = state.ToString();
 
 
 
